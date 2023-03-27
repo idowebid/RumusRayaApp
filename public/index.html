@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RumusRayaApp</title>
+</head>
+<body>
+  <h1>RumusRayaApp</h1>
+  <form id="problem-form">
+    <label for="problem">Enter your math problem:</label>
+    <input type="text" id="problem" name="problem">
+    <button type="submit">Solve</button>
+  </form>
+  <div id="result"></div>
+
+  <script>
+    // JavaScript code will be added here
+    document.getElementById('problem-form').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const problemInput = document.getElementById('problem');
+  const problem = problemInput.value;
+
+  const response = await fetch('/solve', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ problem })
+  });
+
+  const result = await response.json();
+  const resultDiv = document.getElementById('result');
+
+  if (result.success) {
+    resultDiv.innerHTML = `Result: ${result.result}`;
+  } else {
+    resultDiv.innerHTML = `Error: ${result.message}`;
+  }
+
+  problemInput.value = '';
+});
+
+  </script>
+</body>
+</html>
