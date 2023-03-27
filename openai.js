@@ -8,11 +8,11 @@ async function solveMathProblem(problem) {
     const response = await axios.post(
       API_URL,
       {
-        prompt: `Solve the following math problem: ${problem}`,
-        max_tokens: 100,
+        prompt: `Please provide a detailed solution, explanation, and example for the following math problem: ${problem}`,
+        max_tokens: 200,
         n: 1,
         stop: null,
-        temperature: 0.7,
+        temperature: 0.5,
       },
       {
         headers: {
